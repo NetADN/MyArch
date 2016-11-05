@@ -9,17 +9,27 @@ Connect to the network
 
 cd /root
 
-pacman -Syu git
+wget https://raw.githubusercontent.com/NetADN/MyArch/master/script-install-1.sh
+wget https://raw.githubusercontent.com/NetADN/MyArch/master/script-install-2.sh
+wget https://raw.githubusercontent.com/NetADN/MyArch/master/script-install-3.sh
+wget https://raw.githubusercontent.com/NetADN/MyArch/master/config
 
-git clone https://github.com/NetADN/MyArch.git
 
-chmod +x /root/MyArch/* && cd /MyArch
+chmod +x script-* && chmod config
 
 Edit the file config
 
-start the script 1/3
-after reboot 2/3
-and the 3/3 after reboot ;)
+./script-install-1.sh && arch-chroot /mnt /bin/bash
+
+./root/script-install-2.sh
+
+exit
+
+swapoff && umont -R /mtn && reboot
+
+After reboot
+
+./root/script-install-3.sh
 
 
 
