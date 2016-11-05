@@ -91,7 +91,7 @@ echo ""
 sleep 2
 
 echo "Ajout d'un compte utilisateur"
-useradd -m -g users -G wheel  -c 'Sebastien Martinez' -s /bin/bash netadn
+useradd -m -g users -G wheel  -c 'netadn' -s /bin/bash netadn
 echo "Entrer mot de passe du compte utilisateur : "
 passwd netadn
 sleep 1
