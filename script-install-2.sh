@@ -137,7 +137,7 @@ useradd -m -g users -G wheel  -c 'Sebastien Martinez' -s /bin/bash netadn
 echo "Entrer mot de passe du compte utilisateur : "
 passwd netadn
 sleep 1
-visudo
+EDITOR=nano visudo
 echo "----------------------------"
 echo "Utilisateur : OK"
 echo "----------------------------"
