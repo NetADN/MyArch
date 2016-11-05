@@ -107,7 +107,6 @@ sleep 2
 
 
 cp /root/script-install* /mnt/root/
-cp /root/config /mnt/root/
 echo "-----------------------------"
 echo "Copies scripts post install: OK"
 echo "-----------------------------"
