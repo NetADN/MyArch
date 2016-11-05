@@ -4,17 +4,10 @@ ssid="wifi_name"
 wpa="********"
 
 
-
 clear
 echo "############################"
 echo "## INSTALL ARCH LINUX 3/3 ##"
 echo "############################"
-
-
-
-
-
-
 systemctl stop dhcpcd.service
 systemctl start NetworkManager
 sleep 2
@@ -22,17 +15,13 @@ nmcli dev wifi connect $ssid password $wpa
 sleep 10
 systemctl enable NetworkManager
 sleep 2
+
 echo "---------------------------"
 echo "WIFI NetworkManager : OK"
 echo "---------------------------"
 echo ""
 echo ""
 sleep 2
-
-
-
-
-
 
 echo "Ajout des dépots AUR"
 echo "[archlinuxfr]" >> /etc/pacman.conf
@@ -48,10 +37,6 @@ echo ""
 echo ""
 sleep 2
 
-
-
-
-
 echo "Installation des dépendances"
 echo "Entrer votre mot de pass : "
 pacman -S --noconfirm alsa-utils alsa-oss pulseaudio-alsa
@@ -62,11 +47,6 @@ echo ""
 echo ""
 sleep 2
 
-
-
-
-
-
 pacman -S --noconfirm gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav
 echo "---------------------------"
 echo "Install plugin : OK"
@@ -74,11 +54,6 @@ echo "---------------------------"
 echo ""
 echo ""
 sleep 2
-
-
-
-
-
 
 pacman -S --noconfirm xorg-server xorg-xinit xorg-xmessage xorg-utils xorg-server-utils
 echo "---------------------------"
@@ -88,11 +63,6 @@ echo ""
 echo ""
 sleep 2
 
-
-
-
-
-
 pacman -S --noconfirm ttf-bitstream-vera ttf-freefont ttf-dejavu ttf-liberation 
 echo "---------------------------"
 echo "Install fonts : OK"
@@ -100,11 +70,6 @@ echo "---------------------------"
 echo ""
 echo ""
 sleep 2
-
-
-
-
-
 
 pacman -S --noconfirm xf86-input-mouse xf86-input-keyboard xf86-input-synaptics xf86-video-intel
 echo "---------------------------"
@@ -114,11 +79,6 @@ echo ""
 echo ""
 sleep 2
 
-
-
-
-
-
 pacman -S --noconfirm acpi powertop cpupower hdparm iw unzip zip unrar p7zip dosfstools mtools ntfs-3g wget
 echo "---------------------------"
 echo "Install tools : OK"
@@ -126,11 +86,6 @@ echo "---------------------------"
 echo ""
 echo ""
 sleep 2
-
-
-
-
-
 
 systemctll enable bluetooth
 sleep 1
@@ -140,12 +95,6 @@ echo "---------------------------"
 echo ""
 echo ""
 sleep 2
-
-
-
-
-
-
 
 iptables -t filter -F
 iptables -t filter -X
@@ -180,12 +129,6 @@ echo ""
 echo ""
 sleep 2
 
-
-
-
-
-
-
 sudo su - netadn << EOF
 	echo "---------------------------"
 	echo "Connexion user account : OK"
@@ -194,29 +137,19 @@ sudo su - netadn << EOF
 	echo ""
 	sleep 2
 
-
-
-
-
-
-    cd ~/
-    sudo pacman -S --noconfirm xdg-user-dirs gnome gnome-keyring shotwell 
-    localectl set-x11-keymap fr
-    systemctl enable gdm
-    echo "---------------------------"
+        cd ~/
+        sudo pacman -S --noconfirm xdg-user-dirs gnome gnome-keyring shotwell 
+        localectl set-x11-keymap fr
+        systemctl enable gdm
+        echo "---------------------------"
 	echo "Installation de gnome  : OK"
 	echo "---------------------------"
 	echo ""
 	echo ""
 	sleep 2
 
-
-
-
-
-
 	yaourt -S google-chrome firefox-i18n-fr
-    echo "---------------------------"
+        echo "---------------------------"
 	echo "Installation des naviguateurs  : OK"
 	echo "---------------------------"
 	echo ""
@@ -224,11 +157,6 @@ sudo su - netadn << EOF
 	wget http://img0.gtsstatic.com/wallpapers/4afa7b0360d9e260a1b99ca471eea298_large.jpeg
 	mv 4afa7b0360d9e260a1b99ca471eea298_large.jpeg /home/netadn/.config/wallpaper.jpg
 	sleep 2
-
-
-
-
-
 
 EOF
 echo""
@@ -239,14 +167,7 @@ echo ""
 echo ""
 sleep 2
 
-
-
-
-
-
 sudo rm /root/script-install-*
-sudo rm /root/config
-rm /etc/netctl/$ssid
 echo""
 echo "---------------------------"
 echo "Nettoyage file install : OK"
@@ -254,11 +175,6 @@ echo "---------------------------"
 echo ""
 echo ""
 sleep 2
-
-
-
-
-
 
 echo "############################"
 echo " END OFF INSTALL ARCH LINUX "
