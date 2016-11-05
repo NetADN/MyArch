@@ -7,12 +7,11 @@ echo "############################"
 systemctl stop dhcpcd.service
 sleep 2
 systemctl start NetworkManager.service
-systemctl enable NetworkManager.service
 sleep 2
+systemctl enable NetworkManager.service
+sleep 10
 nmcli dev wifi connect $1 password $2
 sleep 10
-systemctl enable NetworkManager
-sleep 2
 
 echo "---------------------------"
 echo "WIFI NetworkManager : OK"
