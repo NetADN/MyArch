@@ -13,7 +13,7 @@ pacman -Syu git
 
 git clone https://github.com/NetADN/MyArch.git
 
-chmod +x /root/MyArch/* aa cd /MyArch
+chmod +x /root/MyArch/* && cd /MyArch
 
 Edit the file config
 
