@@ -10,8 +10,11 @@ Connect to the network
 cd /root
 
 wget https://raw.githubusercontent.com/NetADN/MyArch/master/script-install-1.sh
+
 wget https://raw.githubusercontent.com/NetADN/MyArch/master/script-install-2.sh
+
 wget https://raw.githubusercontent.com/NetADN/MyArch/master/script-install-3.sh
+
 wget https://raw.githubusercontent.com/NetADN/MyArch/master/config
 
 
