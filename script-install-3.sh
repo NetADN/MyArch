@@ -84,7 +84,7 @@ echo ""
 echo ""
 sleep 2
 
-systemctll enable bluetooth
+systemctl enable bluetooth
 sleep 1
 echo "---------------------------"
 echo "Bluetooth : OK"
