@@ -156,6 +156,6 @@ echo "############################"
 
 echo "Veuilez demonterles partitions avant de rebooter"
 echo ""
-echo "-> exit && umount -R /mnt && swapoff"
+echo "-> exit && umount -R /mnt && swapoff /dev/arch/swap"
 echo "ENSUITE REBOOTER CONFIGURER LE SSID ET LA CLEF WPA AVANT D'EXECUTER lE SCRIPT 3/3"
 sleep 10
