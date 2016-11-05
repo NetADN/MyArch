@@ -32,8 +32,7 @@ swapoff && umont -R /mtn && reboot
 
 After reboot
 
-edit wifi config in the script (optional)
-./root/script-install-3.sh
+./root/script-install-3.sh essid key-wpa
 
 
 
