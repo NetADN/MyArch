@@ -11,18 +11,10 @@
 # srv  -> /dev/arch/srv (type partition lvm)
 # home -> /dev/arch/home (type partition lvm)
 
-
-
-
-
 clear
 echo "############################"
 echo "## INSTALL ARCH LINUX 1/3 ##"
 echo "############################"
-
-
-
-
 
 loadkeys fr
 echo "---------------------------"
@@ -31,10 +23,6 @@ echo "---------------------------"
 echo ""
 echo ""
 sleep 2
-
-
-
-
 
 echo "Formatage boot en cours..."
 mkfs.fat -F32 /dev/sda1
@@ -57,10 +45,6 @@ echo ""
 echo ""
 sleep 2
 
-
-
-
-
 swapon /dev/arch/swap
 echo "----------------------------"
 echo "Activation du swap : OK"
@@ -68,10 +52,6 @@ echo "----------------------------"
 echo ""
 echo ""
 sleep 2
-
-
-
-
 
 mount -o discard,noatime /dev/arch/root /mnt
 sleep 1
@@ -89,11 +69,6 @@ echo ""
 echo ""
 sleep 2
 
-
-
-
-
-
 pacstrap -i /mnt base base-devel
 echo "-----------------------------"
 echo "Environnement de chroot : OK"
@@ -101,10 +76,6 @@ echo "-----------------------------"
 echo ""
 echo ""
 sleep 2
-
-
-
-
 
 cp /root/script-install* /mnt/root/
 echo "-----------------------------"
@@ -114,11 +85,6 @@ echo ""
 echo ""
 sleep 2
 
-
-
-
-
-
 genfstab -U -p /mnt >> /mnt/etc/fstab
 echo "-----------------------------"
 echo "File fstab : OK"
@@ -126,11 +92,6 @@ echo "-----------------------------"
 echo ""
 echo ""
 sleep 2
-
-
-
-
-
 
 echo "############################"
 echo "INSTALL ARCH LINUX 1/3  OK"
