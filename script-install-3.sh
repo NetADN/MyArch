@@ -1,13 +1,7 @@
 #!/bin/sh
 
-
-if [[ -f `pwd`/config ]]; then
-  source config
-else
-  echo "missing file: config"
-  exit 1
-fi
-
+ssid="wifi_name"
+wpa="********"
 
 
 
