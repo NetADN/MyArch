@@ -137,7 +137,7 @@ sudo su - netadn << EOF
         cd ~/
         sudo pacman -S --noconfirm xdg-user-dirs gnome gnome-keyring shotwell 
         localectl set-x11-keymap fr
-        systemctl enable gdm
+        systemctl start gdm
         echo "---------------------------"
 	echo "Installation de gnome  : OK"
 	echo "---------------------------"
@@ -162,6 +162,7 @@ echo "Switch to root account : OK"
 echo "---------------------------"
 echo ""
 echo ""
+systemctl enable gdm.service
 sleep 2
 
 sudo rm /root/script-install-*
