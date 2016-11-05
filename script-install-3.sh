@@ -1,9 +1,5 @@
 #!/bin/sh
 
-ssid="wifi_name"
-wpa="********"
-
-
 clear
 echo "############################"
 echo "## INSTALL ARCH LINUX 3/3 ##"
@@ -11,7 +7,7 @@ echo "############################"
 systemctl stop dhcpcd.service
 systemctl start NetworkManager
 sleep 2
-nmcli dev wifi connect $ssid password $wpa
+nmcli dev wifi connect $1 password $2
 sleep 10
 systemctl enable NetworkManager
 sleep 2
