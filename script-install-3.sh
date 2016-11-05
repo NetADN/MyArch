@@ -6,7 +6,8 @@ echo "## INSTALL ARCH LINUX 3/3 ##"
 echo "############################"
 systemctl stop dhcpcd.service
 sleep 2
-systemctl start NetworkManager
+systemctl start NetworkManager.service
+systemctl enable NetworkManager.service
 sleep 2
 nmcli dev wifi connect $1 password $2
 sleep 10
