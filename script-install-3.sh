@@ -135,25 +135,28 @@ sudo su - netadn << EOF
 	sleep 2
 
         cd ~/
-        sudo pacman -S --noconfirm xdg-user-dirs gnome gnome-keyring shotwell 
+        sudo pacman -S --noconfirm xdg-user-dirs gnome gnome-keyring shotwell firefox-i18n-fr
         localectl set-x11-keymap fr
-        systemctl start gdm
+        
         echo "---------------------------"
 	echo "Installation de gnome  : OK"
 	echo "---------------------------"
 	echo ""
 	echo ""
 	sleep 2
-
-	yaourt -S google-chrome firefox-i18n-fr
-        echo "---------------------------"
-	echo "Installation des naviguateurs  : OK"
-	echo "---------------------------"
-	echo ""
-	echo ""
+	
 	wget http://img0.gtsstatic.com/wallpapers/4afa7b0360d9e260a1b99ca471eea298_large.jpeg
 	mv 4afa7b0360d9e260a1b99ca471eea298_large.jpeg /home/netadn/.config/wallpaper.jpg
 	sleep 2
+	systemctl start gdm
+	sleep 2
+	
+	yaourt -S google-chrome 
+        echo "---------------------------"
+	echo "Installation naviguateur  : OK"
+	echo "---------------------------"
+	echo ""
+	echo ""
 
 EOF
 echo""
