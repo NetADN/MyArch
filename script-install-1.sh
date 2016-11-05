@@ -36,45 +36,6 @@ sleep 2
 
 
 
-
-echo "Connexion wifi en cours..."
-touch /etc/netctl/wifi
-cat > /etc/netctl/wifi <<EOL
-Description="Starting Wifi Network $ssid"
-Interface=$interface
-Connection=wireless
-Security=wpa
-IP=dhcp
-ESSID="$ssid"
-Key="$wpa"
-Hidden="$hidden"
-
-EOL
-netctl start wifi
-sleep 5
-echo "---------------------------"
-echo "Connexion wifi : OK"
-echo "---------------------------"
-echo ""
-echo ""
-sleep 2
-
-
-
-
-
-pacman -Sy
-echo "---------------------------"
-echo "Mise à jour des paquets : OK"
-echo "---------------------------"
-echo ""
-echo ""
-sleep 2
-
-
-
-
-
 echo "Formatage boot en cours..."
 mkfs.fat -F32 /dev/sda1
 echo ""
