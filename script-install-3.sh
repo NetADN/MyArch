@@ -250,8 +250,9 @@ sleep 2
 
 
 
-#sudo rm /root/script-install-*
-rm /etc/netctl/freewifi
+sudo rm /root/script-install-*
+sudo rm /root/config
+rm /etc/netctl/$ssid
 echo""
 echo "---------------------------"
 echo "Nettoyage file install : OK"
