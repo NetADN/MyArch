@@ -1,9 +1,5 @@
 #!/bin/sh
-clear 
-
-if [$1 && $2]; then
-    cp /etc/netctl/examples/wireless-wpa /etc/netctl/wifi
-fi
+clear
 
 Bold=$(tput bold)
 BRed=${Bold}$(tput setaf 1)
@@ -31,6 +27,27 @@ print_warning() {
     T_COLS=`tput cols`
     echo -e "${BYellow}$1${Reset}\n" | fold -sw $(( $T_COLS - 1 ))
 }
+config_wifi() {
+	touch /etc/netctl/wifi
+	cat > /etc/netctl/wifi <<EOL
+	Description="Starting Wifi Network $1"
+	Interface=wlp2s0
+	Connection=wireless
+	Security=wpa
+	IP=dhcp
+	ESSID="$1"
+	Key="$2"
+	Hidden=yes
+EOL
+}
+check_wifi() {
+	ping -q -c 2 google.fr >/dev/null 2>&1 
+	if [ $? -eq 0 ]; then 
+	  print_warning "Vous êtes connecté à internet." 
+	else 
+	  print_warning "Vous n'êtes pas connecté à internet." 
+	fi 
+}
 
 print_title "Arch Linux Script Auto-Install FR (beta)"
 print_danger "Attention ! Si vous lancez le script d'installation les données présent sur votre disque dur seront perdus."
@@ -44,6 +61,13 @@ for ((i=0 ; $i < 3; i++))
 		loadkeys fr-pc
 		print_info "Configuration du clavier FR : OK" sleep1
 
+
+		if [ $# -eq 2 ]; then
+			config_wifi
+			check_wifi
+		fi
+
+		exit 1
 
 		gdisk /dev/sda x z y w
 		(
