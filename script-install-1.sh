@@ -1,106 +1,113 @@
 #!/bin/sh
+clear 
 
-# Avant de lancer le script configurer 
-# vos partitions pour correspondre au script
-# vos paramètres de connexion wifi
+Bold=$(tput bold)
+BRed=${Bold}$(tput setaf 1)
+BYellow=${Bold}$(tput setaf 3)
+Reset=$(tput sgr0)
 
-# PARTITION DU HDD
-# UEFI -> /dev/sda1 (type partition vfat)
-# swap -> /dev/arch/swap (type partition lvm)
-# root -> /dev/arch/root (type partition lvm)
-# srv  -> /dev/arch/srv (type partition lvm)
-# home -> /dev/arch/home (type partition lvm)
+print_line() {
+    printf "%$(tput cols)s\n"|tr ' ' '-'
+}
+print_title() {
+    print_line
+    echo -e "# ${Bold}$1${Reset}"
+    print_line
+    echo ""
+}
+print_info() {
+    T_COLS=`tput cols`
+    echo -e "${Bold}$1${Reset}\n" | fold -sw $(( $T_COLS - 18 )) | sed 's/^/\t/'
+}
+print_danger() {
+	T_COLS=`tput cols`
+    echo -e "${BRed}$1${Reset}\n" | fold -sw $(( $T_COLS - 1 )) | sed 's/^/\t/'
+} 
+print_warning() {
+    T_COLS=`tput cols`
+    echo -e "${BYellow}$1${Reset}\n" | fold -sw $(( $T_COLS - 1 ))
+}
 
 clear
-echo "############################"
-echo "## INSTALL ARCH LINUX 1/3 ##"
-echo "############################"
+print_title "Arch Linux Script Auto-Install FR (beta)"
+print_danger "Attention ! Si vous lancez le script d'installation les données présent sur votre disque dur seront perdus."
 
-loadkeys fr
-echo "---------------------------"
-echo "clavier Fr : OK"
-echo "---------------------------"
-echo ""
-echo ""
-sleep 2
 
-echo "Formatage boot en cours..."
-mkfs.fat -F32 /dev/sda1
-echo ""
-echo "Formatage swap en cours..."
-mkswap /dev/arch/swap
-echo ""
-echo "Formatage root en cours..."
-mkfs.ext4 /dev/arch/root
-echo ""
-echo "Formatage srv en cours..."
-mkfs.ext4 /dev/arch/srv
-echo ""
-echo "Formatage home en cours..."
-mkfs.ext4 /dev/arch/home
-echo "----------------------------"
-echo "Formatage des partitions: OK"
-echo "----------------------------"
-echo ""
-echo ""
-sleep 2
+for ((i=0 ; $i < 3; i++))
 
-swapon /dev/arch/swap
-echo "----------------------------"
-echo "Activation du swap : OK"
-echo "----------------------------"
-echo ""
-echo ""
-sleep 2
+    do read -p "Lancer l'installation: [oui|non] : " START 
 
-mount -o discard,noatime /dev/arch/root /mnt
-sleep 1
-mkdir -p /mnt/{boot,srv,home}
-mount /dev/sda1 /mnt/boot
-sleep 1
-mount -o discard,noatime /dev/arch/srv /mnt/srv
-sleep 1
-mount -o discard,noatime /dev/arch/home /mnt/home
-sleep 1
-echo "-----------------------------"
-echo "Montage des partitions : OK"
-echo "-----------------------------"
-echo ""
-echo ""
-sleep 2
+    if [ $START == 'Oui' ] || [ $START == 'OUI' ] || [ $START == 'O' ] || [ $START == 'o' ] || [ $START == 'oui' ]; then
+		loadkeys fr-pc
+		print_info "Configuration du clavier FR : OK" sleep1
 
-pacstrap -i /mnt base base-devel
-echo "-----------------------------"
-echo "Environnement de chroot : OK"
-echo "-----------------------------"
-echo ""
-echo ""
-sleep 2
 
-cp /root/script-install* /mnt/root/
-echo "-----------------------------"
-echo "Copies scripts post install: OK"
-echo "-----------------------------"
-echo ""
-echo ""
-sleep 2
+		gdisk /dev/sda x z y w
+		(
+			echo x
+			echo z
+			echo y
+			echo w
+		) | gdisk
+		(
+			echo n
+			echo 1
+			echo 
+			echo +512M
+			echo EF00
+			echo n
+			echo 2
+			echo 
+			echo 
+			echo 8e00
+			echo w
+		) | gdisk
 
-genfstab -U -p /mnt >> /mnt/etc/fstab
-echo "-----------------------------"
-echo "File fstab : OK"
-echo "-----------------------------"
-echo ""
-echo ""
-sleep 2
+		pvcreate -f /dev/sda2
+		vgcreate -f arch
+		lvcreate -L 4G arch -n swap
+		lvcreate -L 26G arch -n root
+		lvcreate -L 10G arch -n srv
+		lvcreate -l 100%FREE -n home arch
+		print_info "Creation des partitions lvm : OK" sleep 1
 
-echo "############################"
-echo "INSTALL ARCH LINUX 1/3  OK"
-echo "############################"
 
-echo "Veuilez executer la ligne de"
-echo "ci-dessous pour passer dans"
-echo "l'environement chrootet"
+		mkfs.fat -F -F32 /dev/sda1
+		mkswap -f /dev/arch/swap
+		mkfs.ext4 -F /dev/arch/root
+		mkfs.ext4 -F /dev/arch/srv
+		mkfs.ext4 -F /dev/arch/home
+		print_info "Formatage des partitions du system : OK" sleep 1
 
-echo ""
-echo "-> arch-chroot /mnt /bin/bash"
-echo "ENSUITE EXECUTER SCRIPT 2/3"
+		swapon /dev/arch/swap
+		print_info "Activation du swap : OK" sleep 1
+
+		mount -o discard,noatime /dev/arch/root /mnt
+		mkdir -p /mnt/{boot,srv,home}
+		mount /dev/sda1 /mnt/boot
+		mount -o discard,noatime /dev/arch/srv /mnt/srv
+		mount -o discard,noatime /dev/arch/home /mnt/home
+		print_info "Montage des partitions : OK" sleep 1
+
+		pacstrap -i /mnt base base-devel
+		cp /root/script-install* /mnt/root/
+		print_info "Environnement chroot : OK" sleep 1
+
+
+		genfstab -U -p /mnt >> /mnt/etc/fstab
+		print_info "Création du fichier fstab : OK" sleep 1
+
+		print_info "Veuillez executer la comande ci-dessous pour switcher dans votre nouveau système. Une fois arrivé dans votre nouvel environnement lancer le script d'installation 2/3."
+		print_warning "arch-chroot /mnt /bin/bash"
+
+		print_title "Installation 1/3 terminé avec succès"
+		sleep 10
+
+    	exit 0
+    elif [ $START == 'Non' ] || [ $START == 'NON' ] || [ $START == 'N' ] || [ $START == 'n' ] || [ $START == 'non' ]; then
+    	exit 0
+    else 
+    	echo "Choix non valide"
+    fi
+done
+exit 0
