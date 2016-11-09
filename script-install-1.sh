@@ -77,7 +77,8 @@ for ((i=0 ; $i < 3; i++))
 		
 		(
 			echo x
-			echo z Y Y
+			echo z
+			echo Y Y
 		) | gdisk /dev/sda
 		
 		(
@@ -87,6 +88,7 @@ for ((i=0 ; $i < 3; i++))
 			echo +512M
 			echo ef00
 			echo w
+			echo Y
 		) | gdisk /dev/sda
 
 		(
@@ -96,6 +98,7 @@ for ((i=0 ; $i < 3; i++))
 			echo 
 			echo 8e00
 			echo w
+			echo Y
 		) | gdisk /dev/sda
 
 		modprobe dm_mod
