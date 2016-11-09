@@ -79,9 +79,12 @@ EOL
 		print_warning "Entrez le mot de passe du compte root : "
 		passwd 
 		print_info "Création du mot de passe root : OK" sleep 1
-		read -p "Tappez oui pour ajouter un nouvel utilisateur : " NEW_USER 
+
+    	read -p "Tappez oui pour ajouter un nouvel utilisateur : " NEW_USER 
 		if [ $NEW_USER == 'Oui' ] || [ $NEW_USER == 'OUI' ] || [ $NEW_USER == 'O' ] || [ $NEW_USER == 'o' ] || [ $NEW_USER == 'oui' ]; then
 			read -p "Entrez le nom du nouvel utilisateur : " NAME_NEW_USER
+			touch /root/user.txt
+			echo NAME_NEW_USER > /root/user.txt
 			useradd -m -g users -G wheel -c "$NAME_NEW_USER" -s /bin/bash $NAME_NEW_USER
 			print_info "Entrez le mot de passe du compte utilisateur : "
 			passwd $NAME_NEW_USER
@@ -91,7 +94,11 @@ EOL
 		fi
 
 		print_warning "Veuillez lancer ${Bold}\"exit\"${Reset} les commandes ci-dessous pour sortir de l'environnement chroot. Ensuite tappez ${Bold}\"umount -R /mnt && swapoff /dev/arch/swap\"${Reset} pour démonter proprement les partitions et redémarrer à l'aide de la commande ${Bold}\"reboot\"${Reset}. Au redémarage de l'ordinateur pensez à utiliser le nouveau mot de passe pour vous connecter. Puis lancer le script Auto-Install 3/3 pour terminer l'installation d'Arch Linux."
-		sleep 10
+		sleep 
+
+		unset $START
+		unset $NEW_USER
+		unset $NAME_NEW_USER
 
     	exit 0
     elif [ $START == 'Non' ] || [ $START == 'NON' ] || [ $START == 'N' ] || [ $START == 'n' ] || [ $START == 'non' ]; then
