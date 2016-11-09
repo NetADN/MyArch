@@ -77,10 +77,9 @@ for ((i=0 ; $i < 3; i++))
 		
 		(
 			echo x
-			echo z
-			echo Y Y
+			echo z Y Y
 		) | gdisk /dev/sda
-		
+		sleep 10
 		(
 			echo n
 			echo 1
@@ -90,7 +89,7 @@ for ((i=0 ; $i < 3; i++))
 			echo w
 			echo Y
 		) | gdisk /dev/sda
-
+		sleep 1
 		(
 			echo n
 			echo 2
@@ -100,7 +99,7 @@ for ((i=0 ; $i < 3; i++))
 			echo w
 			echo Y
 		) | gdisk /dev/sda
-
+		sleep 1
 		modprobe dm_mod
 		pvcreate -f /dev/sda2
 		vgcreate -f arch
@@ -110,7 +109,7 @@ for ((i=0 ; $i < 3; i++))
 		lvcreate -l 100%FREE -n home arch
 		print_info "Creation des partitions lvm : OK" sleep 1
 
-		mkfs.fat -F -F32 /dev/sda1
+		mkfs.fat -F32 /dev/sda1
 		mkswap -f /dev/arch/swap
 		mkfs.ext4 -F /dev/arch/root
 		mkfs.ext4 -F /dev/arch/srv
