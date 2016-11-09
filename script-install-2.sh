@@ -28,16 +28,13 @@ print_warning() {
     echo -e "${BYellow}$1${Reset}\n" | fold -sw $(( $T_COLS - 1 ))
 }
 
-
 print_title "Arch Linux Script Auto-Install FR 2/3 (beta)"
-
 
 for ((i=0 ; $i < 3; i++))
 
     do read -p "Lancer l'installation: [oui|non] : " START 
 
     if [ $START == 'Oui' ] || [ $START == 'OUI' ] || [ $START == 'O' ] || [ $START == 'o' ] || [ $START == 'oui' ]; then
-
 
 		echo archlinux > /etc/hostname
 		echo '127.0.0.1 localhost.localdomain localhost archlinux' > /etc/hosts
@@ -82,7 +79,6 @@ EOL
 		print_warning "Entrez le mot de passe du compte root : "
 		passwd 
 		print_info "Création du mot de passe root : OK" sleep 1
-
 
     	read -p "Tappez oui pour ajouter un nouvel utilisateur : " NEW_USER 
 		if [ $NEW_USER == 'Oui' ] || [ $NEW_USER == 'OUI' ] || [ $NEW_USER == 'O' ] || [ $NEW_USER == 'o' ] || [ $NEW_USER == 'oui' ]; then
