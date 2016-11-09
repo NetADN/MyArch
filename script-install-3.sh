@@ -131,7 +131,7 @@ for ((i=0 ; $i < 3; i++))
 		print_info "Nettoyage des fichiers d'instalaltion : OK" sleep 1
 	
 		print_title "Arch Linux Script Auto-Install 3/3 terminé avec succès. Veuillez redémarrer pour finaliser votre installation."
-		sleep 10
+		sleep 1
 
     	exit 0
 
