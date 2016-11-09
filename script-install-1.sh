@@ -139,6 +139,12 @@ for ((i=0 ; $i < 3; i++))
 		print_title "Arch Linux Script Auto-Install 1/3 terminé avec succès."
 		sleep 15
 
+		unset $START
+		unset $WIFI
+		unset $SSID
+		unset $WPA
+		unset $FILE_WIFI
+
     	exit 0
 
     elif [ $START == 'Non' ] || [ $START == 'NON' ] || [ $START == 'N' ] || [ $START == 'n' ] || [ $START == 'non' ]; then
