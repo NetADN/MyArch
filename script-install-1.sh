@@ -1,6 +1,10 @@
 #!/bin/sh
 clear 
 
+if [$1 && $2]; then
+    cp /etc/netctl/examples/wireless-wpa /etc/netctl/wifi
+fi
+
 Bold=$(tput bold)
 BRed=${Bold}$(tput setaf 1)
 BYellow=${Bold}$(tput setaf 3)
