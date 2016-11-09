@@ -45,6 +45,7 @@ EOL
 }
 check_wifi() {
 	ping -q -c 2 google.fr >/dev/null 2>&1 
+	sleep
 	if [ $? -eq 0 ]; then 
 	  print_warning "Vous êtes connecté à internet." 
 	else 
@@ -74,14 +75,12 @@ for ((i=0 ; $i < 3; i++))
 			netctl start wifi
 			sleep 10
 		fi
-
-		gdisk /dev/sda x z y w
+		
 		(
 			echo x
-			echo z
-			echo y
-			echo w
+			echo z Y Y
 		) | gdisk
+
 		(
 			echo n
 			echo 1
@@ -94,7 +93,7 @@ for ((i=0 ; $i < 3; i++))
 			echo 
 			echo 8e00
 			echo w
-		) | gdisk
+		) | gdisk /dev/sda
 
 		pvcreate -f /dev/sda2
 		vgcreate -f arch
@@ -138,12 +137,6 @@ for ((i=0 ; $i < 3; i++))
 
 		print_title "Arch Linux Script Auto-Install 1/3 terminé avec succès."
 		sleep 15
-
-		unset $START
-		unset $WIFI
-		unset $SSID
-		unset $WPA
-		unset $FILE_WIFI
 
     	exit 0
 
