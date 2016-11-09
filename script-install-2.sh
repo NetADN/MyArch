@@ -77,7 +77,7 @@ for ((i=0 ; $i < 3; i++))
 EOL
 		rm -R /boot/EFI/boot
 		bootctl update
-		print_info "Configuration du boot UEFI : oK" sleep 1
+		print_info "Configuration du boot UEFI : OK" sleep 1
 
 		print_warning "Entrez le mot de passe du compte root : "
 		passwd 
