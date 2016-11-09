@@ -133,16 +133,6 @@ for ((i=0 ; $i < 3; i++))
 		print_title "Arch Linux Script Auto-Install 3/3 terminé avec succès. Veuillez redémarrer pour finaliser votre installation."
 		sleep 10
 
-		unset $START
-		unset $DEPOT_AUR
-		unset $BT
-		unset $NAME_USER
-		unset $FILE_WIFI
-		unset $FILE_USER
-		unset $FILE_CONFIG_WIFI
-		unset $SSID
-		unset $WPA
-
     	exit 0
 
     elif [ $START == 'Non' ] || [ $START == 'NON' ] || [ $START == 'N' ] || [ $START == 'n' ] || [ $START == 'non' ]; then
