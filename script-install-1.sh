@@ -142,7 +142,7 @@ for ((i=0 ; $i < 3; i++))
 		print_warning "Veuillez executer \"arch-chroot /mnt /bin/bash\" pour switcher dans votre futur système d'exploitation. Dans votre nouvel environnement lancer le script Auto-Install 2/3 pour continuer l'installation."
 
 		print_title "Arch Linux Script Auto-Install 1/3 terminé avec succès."
-		sleep 15
+		sleep 1
 
     	exit 0
 
