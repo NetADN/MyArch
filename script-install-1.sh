@@ -45,7 +45,7 @@ EOL
 }
 check_wifi() {
 	ping -q -c 2 google.fr >/dev/null 2>&1 
-	sleep
+	sleep 2
 	if [ $? -eq 0 ]; then 
 	  print_warning "Vous êtes connecté à internet." 
 	else 
