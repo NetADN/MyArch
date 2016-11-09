@@ -49,7 +49,7 @@ check_wifi() {
 	fi 
 }
 
-print_title "Arch Linux Script Auto-Install FR (beta)"
+print_title "Arch Linux Script Auto-Install FR 1/3 (beta)"
 print_danger "Attention ! Si vous lancez le script d'installation les données présent sur votre disque dur seront perdus."
 
 
@@ -65,6 +65,8 @@ for ((i=0 ; $i < 3; i++))
 		if [ $# -eq 2 ]; then
 			config_wifi
 			check_wifi
+			netctl start wifi
+			sleep 10
 		fi
 
 		gdisk /dev/sda x z y w
