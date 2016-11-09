@@ -83,13 +83,13 @@ EOL
     	read -p "Tappez oui pour ajouter un nouvel utilisateur : " NEW_USER 
 		if [ $NEW_USER == 'Oui' ] || [ $NEW_USER == 'OUI' ] || [ $NEW_USER == 'O' ] || [ $NEW_USER == 'o' ] || [ $NEW_USER == 'oui' ]; then
 			read -p "Entrez le nom du nouvel utilisateur : " NAME_NEW_USER
-	    	useradd -m -g users -G wheel -c "$NAME_NEW_USER" -s /bin/bash $NAME_NEW_USER
-	    	print_info "Entrez le mot de passe du compte utilisateur : "
-	    	passwd $NAME_NEW_USER
-	    	print_warning "Décommenter cette ligne ${Bold}\"%wheel ALL=(ALL) ALL\"${Reset} pour donner les droits administrateur au nouveau compte."
-	    	sleep 10
-	    	EDITOR=nano visudo
-	    fi
+			useradd -m -g users -G wheel -c "$NAME_NEW_USER" -s /bin/bash $NAME_NEW_USER
+			print_info "Entrez le mot de passe du compte utilisateur : "
+			passwd $NAME_NEW_USER
+			print_warning "Décommenter cette ligne ${Bold}\"%wheel ALL=(ALL) ALL\"${Reset} pour donner les droits administrateur au nouveau compte."
+			sleep 10
+			EDITOR=nano visudo
+		fi
 
 		print_warning "Veuillez lancer ${Bold}\"exit\"${Reset} les commandes ci-dessous pour sortir de l'environnement chroot. Ensuite tappez ${Bold}\"umount -R /mnt && swapoff /dev/arch/swap\"${Reset} pour démonter proprement les partitions et redémarrer à l'aide de la commande ${Bold}\"reboot\"${Reset}. Au redémarage de l'ordinateur pensez à utiliser le nouveau mot de passe pour vous connecter. Puis lancer le script Auto-Install 3/3 pour terminer l'installation d'Arch Linux."
 		sleep 10
