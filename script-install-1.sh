@@ -57,7 +57,6 @@ check_wifi() {
 print_title "Arch Linux Script Auto-Install FR 1/3 (beta)"
 print_danger "Attention ! Si vous lancez le script d'installation les données présent sur votre disque dur seront perdus."
 
-
 for ((i=0 ; $i < 3; i++))
 
     do read -p "Lancer l'installation: [oui|non] : " START 
@@ -80,13 +79,17 @@ for ((i=0 ; $i < 3; i++))
 			echo x
 			echo z Y Y
 		) | gdisk /dev/sda
-
+		
 		(
 			echo n
 			echo 1
 			echo 
 			echo +512M
-			echo EF00
+			echo ef00
+			echo w
+		) | gdisk /dev/sda
+
+		(
 			echo n
 			echo 2
 			echo 
@@ -95,6 +98,7 @@ for ((i=0 ; $i < 3; i++))
 			echo w
 		) | gdisk /dev/sda
 
+		modprobe dm_mod
 		pvcreate -f /dev/sda2
 		vgcreate -f arch
 		lvcreate -L 4G arch -n swap
