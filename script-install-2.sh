@@ -59,7 +59,7 @@ for ((i=0 ; $i < 3; i++))
 		mkinitcpio -p linux
 		print_info "Création du noyau GNU/Linux : OK" sleep 1
 	
-		pacman -Syu intel-ucode wpa_supplicant networkmanager
+		pacman -Syu --nocomfirm intel-ucode wpa_supplicant networkmanager
 		print_info "Installation des dépendances minimales : OK" sleep 1
 	
 		bootctl install
@@ -80,11 +80,11 @@ EOL
 		passwd 
 		print_info "Création du mot de passe root : OK" sleep 1
 
-    	read -p "Tappez oui pour ajouter un nouvel utilisateur : " NEW_USER 
+    		read -p "Tappez oui pour ajouter un nouvel utilisateur : " NEW_USER 
 		if [ $NEW_USER == 'Oui' ] || [ $NEW_USER == 'OUI' ] || [ $NEW_USER == 'O' ] || [ $NEW_USER == 'o' ] || [ $NEW_USER == 'oui' ]; then
 			read -p "Entrez le nom du nouvel utilisateur : " NAME_NEW_USER
 			touch /root/user.txt
-			echo NAME_NEW_USER > /root/user.txt
+			echo $NAME_NEW_USER > /root/user.txt
 			useradd -m -g users -G wheel -c "$NAME_NEW_USER" -s /bin/bash $NAME_NEW_USER
 			print_info "Entrez le mot de passe du compte utilisateur : "
 			passwd $NAME_NEW_USER
