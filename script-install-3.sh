@@ -28,9 +28,8 @@ print_warning() {
     echo -e "${BYellow}$1${Reset}\n" | fold -sw $(( $T_COLS - 1 ))
 }
 config_wifi() {
-	SSID=sed -n '1' /root/wifi.txt
-	WPA=sed -n '2' /root/wifi.txt
-	nmcli dev wifi connect $SSID password $WPA
+	mapfile < /root/wifi.txt
+	nmcli dev wifi connect ${MAPFILE[0]} password ${MAPFILE[1]}
 	sleep 10
 }
 check_wifi() {
