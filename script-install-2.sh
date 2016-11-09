@@ -94,7 +94,7 @@ EOL
 		fi
 
 		print_warning "Veuillez lancer ${Bold}\"exit\"${Reset} les commandes ci-dessous pour sortir de l'environnement chroot. Ensuite tappez ${Bold}\"umount -R /mnt && swapoff /dev/arch/swap\"${Reset} pour démonter proprement les partitions et redémarrer à l'aide de la commande ${Bold}\"reboot\"${Reset}. Au redémarage de l'ordinateur pensez à utiliser le nouveau mot de passe pour vous connecter. Puis lancer le script Auto-Install 3/3 pour terminer l'installation d'Arch Linux."
-		sleep 
+		sleep 1
 
     	exit 0
     elif [ $START == 'Non' ] || [ $START == 'NON' ] || [ $START == 'N' ] || [ $START == 'n' ] || [ $START == 'non' ]; then
