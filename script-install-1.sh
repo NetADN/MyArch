@@ -28,15 +28,18 @@ print_warning() {
     echo -e "${BYellow}$1${Reset}\n" | fold -sw $(( $T_COLS - 1 ))
 }
 config_wifi() {
+	touch /root/wifi.txt
+	echo $SSID > /root/wifi.txt
+	echo $WPA >> /root/wifi.txt
 	touch /etc/netctl/wifi
 	cat > /etc/netctl/wifi <<EOL
-	Description="Starting Wifi Network $1"
+	Description="Starting Wifi Network $SSID"
 	Interface=wlp2s0
 	Connection=wireless
 	Security=wpa
 	IP=dhcp
-	ESSID="$1"
-	Key="$2"
+	ESSID="$SSID"
+	Key="$WPA"
 	Hidden=yes
 EOL
 }
@@ -62,7 +65,10 @@ for ((i=0 ; $i < 3; i++))
 		print_info "Configuration du clavier FR : OK" sleep1
 
 
-		if [ $# -eq 2 ]; then
+		read -p "Tapez oui pour configurer un reseau wifi : " WIFI
+		if [ $WIFI == 'Oui' ] || [ $WIFI == 'OUI' ] || [ $WIFI == 'O' ] || [ $WIFI == 'o' ] || [ $WIFI == 'oui' ]; then
+			read -p "Entrez le nom de votre resau wifi : " SSID
+			read -p "Entrez le mot de passe de votre resau wifi : " WPA
 			config_wifi
 			check_wifi
 			netctl start wifi
@@ -98,7 +104,6 @@ for ((i=0 ; $i < 3; i++))
 		lvcreate -l 100%FREE -n home arch
 		print_info "Creation des partitions lvm : OK" sleep 1
 
-
 		mkfs.fat -F -F32 /dev/sda1
 		mkswap -f /dev/arch/swap
 		mkfs.ext4 -F /dev/arch/root
@@ -118,19 +123,24 @@ for ((i=0 ; $i < 3; i++))
 
 		pacstrap -i /mnt base base-devel
 		cp /root/script-install* /mnt/root/
-		print_info "Environnement chroot : OK" sleep 1
 
+		FILE_WIFI="/root/wifi.txt"
+		if [ -f "$FILE_WIFI" ]; then
+			cp /root/wifi.txt /mnt/root/
+		fi
+
+		print_info "Environnement chroot : OK" sleep 1
 
 		genfstab -U -p /mnt >> /mnt/etc/fstab
 		print_info "Création du fichier fstab : OK" sleep 1
 
-		print_info "Veuillez executer la comande ci-dessous pour switcher dans votre nouveau système. Une fois arrivé dans votre nouvel environnement lancer le script d'installation 2/3."
-		print_warning "arch-chroot /mnt /bin/bash"
+		print_warning "Veuillez executer ${Bold}\"arch-chroot /mnt /bin/bash\"${Reset} pour switcher dans votre futur système d'exploitation. Dans votre nouvel environnement lancer le script Auto-Install 2/3 pour continuer l'installation."
 
-		print_title "Installation 1/3 terminé avec succès"
-		sleep 10
+		print_title "Arch Linux Script Auto-Install 1/3 terminé avec succès."
+		sleep 15
 
     	exit 0
+
     elif [ $START == 'Non' ] || [ $START == 'NON' ] || [ $START == 'N' ] || [ $START == 'n' ] || [ $START == 'non' ]; then
     	exit 0
     else 
