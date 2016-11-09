@@ -85,8 +85,9 @@ for ((i=0 ; $i < 3; i++))
 		FILE_USER="/root/user.txt"
 		if [ -f "$FILE_USER" ]; then
 			print_warning "Entrez le mot de passe du compte $NAME_USER"
-			NAME_USER=sed -n '1' user.txt
-			sudo su - $NAME_USER << EOF
+			
+			mapfile < /root/user.txt
+			sudo su - ${MAPFILE[0]} << EOF
 		        sudo pacman -S --noconfirm xdg-user-dirs
 		        localectl set-x11-keymap fr
 		        yaourt -S google-chrome
