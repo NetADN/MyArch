@@ -67,8 +67,6 @@ for ((i=0 ; $i < 3; i++))
 			check_wifi
 		fi
 
-		exit 1
-
 		gdisk /dev/sda x z y w
 		(
 			echo x
