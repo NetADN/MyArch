@@ -28,8 +28,8 @@ print_warning() {
     echo -e "${BYellow}$1${Reset}\n" | fold -sw $(( $T_COLS - 1 ))
 }
 config_wifi() {
-	SSID=sed -n '1' wifi.txt
-	WPA=sed -n '2' wifi.txt
+	SSID=sed -n '1' /root/wifi.txt
+	WPA=sed -n '2' /root/wifi.txt
 	nmcli dev wifi connect $SSID password $WPA
 	sleep 10
 }
@@ -67,9 +67,9 @@ for ((i=0 ; $i < 3; i++))
 			echo "[archlinuxfr]" >> /etc/pacman.conf
 			echo "SigLevel = Never" >> /etc/pacman.conf
 			echo "Server = http://repo.archlinux.fr/\$arch" >> /etc/pacman.conf
-			pacman -Syu
+			pacman -Syu --noconfirm
 			sleep 1
-			pacman -S yaourt
+			pacman -S --noconfirm yaourt
 			print_info "Configuration des dépots Arch User Repository : OK" sleep 1
 		fi
 
@@ -91,7 +91,7 @@ for ((i=0 ; $i < 3; i++))
 		        sudo pacman -S --noconfirm xdg-user-dirs
 		        localectl set-x11-keymap fr
 		        yaourt -S google-chrome
-			EOF
+EOF
 			rm /root/user.txt
 		fi
 
