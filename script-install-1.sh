@@ -79,7 +79,7 @@ for ((i=0 ; $i < 3; i++))
 		(
 			echo x
 			echo z Y Y
-		) | gdisk
+		) | gdisk /dev/sda
 
 		(
 			echo n
