@@ -28,7 +28,6 @@ print_warning() {
     echo -e "${BYellow}$1${Reset}\n" | fold -sw $(( $T_COLS - 1 ))
 }
 
-clear
 print_title "Arch Linux Script Auto-Install FR (beta)"
 print_danger "Attention ! Si vous lancez le script d'installation les données présent sur votre disque dur seront perdus."
 
