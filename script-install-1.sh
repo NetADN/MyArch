@@ -42,6 +42,7 @@ config_wifi() {
 	Key="$WPA"
 	Hidden=yes
 EOL
+	netctl start wifi
 }
 check_wifi() {
 	ping -q -c 2 google.fr >/dev/null 2>&1 
@@ -72,7 +73,6 @@ for ((i=0 ; $i < 3; i++))
 			read -p "Entrez le mot de passe de votre resau wifi : " WPA
 			config_wifi
 			check_wifi
-			netctl start wifi
 			sleep 10
 		fi
 		
@@ -133,7 +133,7 @@ for ((i=0 ; $i < 3; i++))
 		genfstab -U -p /mnt >> /mnt/etc/fstab
 		print_info "Création du fichier fstab : OK" sleep 1
 
-		print_warning "Veuillez executer ${Bold}\"arch-chroot /mnt /bin/bash\"${Reset} pour switcher dans votre futur système d'exploitation. Dans votre nouvel environnement lancer le script Auto-Install 2/3 pour continuer l'installation."
+		print_warning "Veuillez executer \"arch-chroot /mnt /bin/bash\" pour switcher dans votre futur système d'exploitation. Dans votre nouvel environnement lancer le script Auto-Install 2/3 pour continuer l'installation."
 
 		print_title "Arch Linux Script Auto-Install 1/3 terminé avec succès."
 		sleep 15
