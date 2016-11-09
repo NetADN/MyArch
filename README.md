@@ -5,4 +5,5 @@
 Boot with iso Archlinux
 
 Copy all files on the /root/
-./script-install-1
+
+Execut -> ./script-install-1
